@@ -14,6 +14,9 @@ public class Player : MonoBehaviour
     [Header("取得距離")]
     [SerializeField] private float pickupRadius = 2f;
 
+    [Header("手持ち表示用モデル")]
+    [SerializeField] private GameObject[] handItmes;
+
     [SerializeField] private LayerMask piuckupLayer;
 
     private ItemType? currentItem = null;
@@ -109,6 +112,7 @@ public class Player : MonoBehaviour
             if(pickup != null)
             {
                 currentItem = pickup.itemType;
+                ShowHand(currentItem.Value);
 
                 Debug.Log(currentItem + "取得");
 
@@ -119,10 +123,25 @@ public class Player : MonoBehaviour
         }
     }
 
+    private void ShowHand(ItemType itemType)
+    {
+        foreach(var item in handItmes)
+        {
+            item.SetActive(false);
+        }
+
+        handItmes[(int)itemType].SetActive(true);
+    }
+
     // アイテムをクリアする
     public void ClearItem()
     {
         currentItem = null;
+
+        foreach(var item in handItmes)
+        {
+            item.SetActive(false);
+        }
     }
 
     private void OnDrawGizmosSelected()

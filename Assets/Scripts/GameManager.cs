@@ -33,8 +33,6 @@ public class GameManager : MonoBehaviour
     [Header("配達先が配置される場所")]
     [SerializeField] private Transform[] deliverySpawnPoints;
 
-    [SerializeField] private Renderer goalRenderer;
-
     [Header("スタートUI")]
     [SerializeField] private TextMeshProUGUI readytext;
     [SerializeField] private TextMeshProUGUI gotext;
