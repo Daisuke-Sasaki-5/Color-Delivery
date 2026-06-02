@@ -243,7 +243,7 @@ public class GameManager : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
 
-        FadeManager.instance.FadeToScene("EndScene");
+        FadeManager.instance.FadeToScene("ResultScene");
     }
 
     private void OnEnable()
