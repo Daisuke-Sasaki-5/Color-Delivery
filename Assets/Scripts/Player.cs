@@ -19,6 +19,9 @@ public class Player : MonoBehaviour
 
     [SerializeField] private LayerMask piuckupLayer;
 
+    [Header("アニメーター")]
+    [SerializeField] private Animator animator;
+
     private ItemType? currentItem = null;
     public ItemType? CurrentItem => currentItem;
 
@@ -62,6 +65,11 @@ public class Player : MonoBehaviour
     private void OnMove(InputAction.CallbackContext context)
     {
         moveInput = context.ReadValue<Vector2>();
+    }
+
+    private void Update()
+    {
+        animator.SetBool("IsMove",moveInput.sqrMagnitude > 0.01f);
     }
 
     private void FixedUpdate()
@@ -112,6 +120,7 @@ public class Player : MonoBehaviour
             if(pickup != null)
             {
                 currentItem = pickup.itemType;
+                animator.SetBool("IsCarry",true);
                 ShowHand(currentItem.Value);
 
                 Debug.Log(currentItem + "取得");
@@ -138,7 +147,9 @@ public class Player : MonoBehaviour
     {
         currentItem = null;
 
-        foreach(var item in handItmes)
+        animator.SetBool("IsCarry", false);
+
+        foreach (var item in handItmes)
         {
             item.SetActive(false);
         }
